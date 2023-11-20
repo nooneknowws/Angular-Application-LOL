@@ -1,0 +1,42 @@
+<body>
+    <h1 class="text-center titulo-tela my-5">Listagem de Funcionários</h1>
+    <table class="table table-bordered table-hover mx-auto" style="width: 70vw;">
+        <tbody>
+            <tr class="text-center">
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Data de Nascimento</th>
+                <th class="text-center">
+                    <a [routerLink]="['/funcionario/novoFuncionario']"
+                    href="#" title="Novo" alt="Novo" class="btn-novo btn">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Novo
+                    </a>
+                </th>
+            </tr>
+            <tr *ngFor="let funcionario of funcionarios; let i = index; " class="text-center">
+              <ng-container *ngIf="funcionario.perfil === 'FUNC'">
+              <td>{{funcionario.nome}} </td>
+              <td>{{funcionario.email}}</td>
+              <td>{{funcionario.dataDeNasc | date: 'dd/MM/yyyy'}}</td>
+              <td class="text-center" style="width: 460px">
+                  <a [routerLink]="['/funcionario/editarFuncionario', funcionario.id]" href="#" title="Editar" alt="Editar" class="btn-editar btn me-1">
+                      <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                  </a>
+                  <a href="#" title="Remover" (click)="remover(funcionario, i)" alt="Remover" class="btn-remover btn"
+                      data-bs-toggle="modal">
+                      <i class="fa fa-times" aria-hidden="true"></i> Remover
+                  </a>
+              </td>
+            </ng-container>
+          </tr>
+
+
+
+        </tbody>
+
+    </table>
+
+
+    <p *ngIf="funcionarios.length==0" class="text-center">Nenhum funcionario cadastrado.</p>
+
+</body>

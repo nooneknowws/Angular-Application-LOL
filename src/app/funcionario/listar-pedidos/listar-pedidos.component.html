@@ -1,0 +1,131 @@
+<body>
+  <h1 class="text-center titulo-tela my-5">Visualização de pedidos</h1>
+  <div class="container-fluid">
+    <table class="table table-bordered table-hover mx-auto" style="width: 70vw;">
+      <tbody>
+        <tr class="text-center">
+          <th class="a">Número</th>
+          <th class="a">Data</th>
+          <th class="a">Status</th>
+          <th class="a">
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-giu dropdown-toggle"
+                type="button"
+                id="filtroDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Filtro <i class="fas fa-filter"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="filtroDropdown">
+                <li><a class="dropdown-item" (click)="filterPedidos('Pedidos de Hoje')" >Pedidos de Hoje</a></li>
+                <li><a class="dropdown-item" (click)="openDateRangePickerModal()">Período de Data</a></li>
+                <li><a class="dropdown-item" (click)="filterPedidos('Todos os Pedidos')">Todos os Pedidos</a></li>
+              </ul>
+            </div>
+          </th>
+        </tr>
+        <ng-container *ngFor="let pedido of pedidos">
+          <tr class="text-center align-middle">
+            <td>#{{ pedido.id }}</td>
+            <td>{{pedido.datadopedido | date:'dd/MM/yyyy HH:mm'}}</td>
+            <td class="status" [style.background-color]="pedido.status?.color">
+              {{ pedido.status?.Status }}
+            </td>
+            <td>
+              <a
+                data-bs-toggle="modal"
+                data-bs-target="#modalRecolher"
+                *ngIf="pedido.status?.Status == 'Aberto'"
+                class="btn btn-xs btn-warning">
+                <i class="fa-solid fa-truck" style="color: #151514;"></i> Recolher</a>
+
+              <!-- Os divs depois dos <a> são os modal -->
+              <div
+              *ngIf="pedido.status?.Status == 'Aberto'"
+              class="modal fade" id="modalRecolher"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5">Confirmar recolhimento</h1>
+                      <button type="button" class="btn-close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Confirme a mudança de status do pedido de <b>Aberto</b> para <b>Recolhido</b>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                      (click)="AlterarStatus(pedido)">Confirmar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a
+                data-bs-toggle="modal"
+                data-bs-target="#modalLavagem"
+                *ngIf="pedido.status?.Status == 'Recolhido'"
+                class="btn btn-xs btn-secondary"
+                ><i class="fa-solid fa-bath"></i> Lavagem</a
+              >
+              <div
+              *ngIf="pedido.status?.Status == 'Recolhido'"
+              class="modal fade" id="modalLavagem"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5">Confirmar lavagem</h1>
+                      <button type="button" class="btn-close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Confirme a mudança de status do pedido de <b>Recolhido</b> para <b>Aguardando pagamento</b>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                      (click)="AlterarStatus(pedido)">Confirmar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a
+                data-bs-toggle="modal"
+                data-bs-target="#modalFinalizar"
+                *ngIf="pedido.status?.Status == 'Pago'"
+                class="btn btn-xs btn-success"
+                ><i class="fa-solid fa-check"></i> Finalizar</a
+              >
+              <div
+              *ngIf="pedido.status?.Status == 'Pago'"
+              class="modal fade" id="modalFinalizar"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5">Confirmar finalizar</h1>
+                      <button type="button" class="btn-close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Confirme a mudança de status do pedido de <b>Pago</b> para <b>Finalizado</b>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                      (click)="AlterarStatus(pedido)">Confirmar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <p *ngIf="pedidos.length == 0" class="text-center">
+      Nenhum Pedido Encontrado
+    </p>
+  </div>
+</body>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tela Orçamento</title>
+  </head>
+  <body>
+	  <div class="container border-1 border-dark border mt-3">
+            <h2 class="titulo-tela numPedido pb-1">Pedido {{pedido.id}}</h2>
+            <p class="m-0 fw-semibold">Preço total: {{pedido.valorTotal | currency : 'BRL'}}</p>
+            <p class="m-0 fw-semibold">Prazo do serviço: {{calculaDataSomada()}}</p>
+            <h4 class="subTitulo mb-3">Roupas do Pedido:</h4>
+            <div class="overflow-y-scroll mx-5" style="max-height: 15rem;">
+				<table class="table tabela table-bordered border border-5 border-tabela">
+          <thead>
+            <th>Quantidade:</th>
+
+            <th>Peça:</th>
+
+            <th>Preço:</th>
+          </thead>
+					<tbody>
+					<ng-container *ngFor="let item of pedido.itens" >
+					<tr class="border-5 border-tabela">
+					  <td scope="row">{{item.quantidade}}</td>
+					  <td class="border-5 border-tabela">{{item.roupa?.peca}}</td>
+					  <td class="border-5 border-tabela">{{(item.roupa?.preco ?? 0) * (item.quantidade ?? 0) | currency : 'BRL'}}</td>
+				   </ng-container>
+				  </tbody>
+				</table>
+				<p *ngIf="pedido.itens?.length == 0" class="text-center">
+					Nenhum Pedido Encontrado
+				  </p>
+        </div>
+      </div>
+
+	  <div class="d-flex justify-content-evenly mt-4">
+		<button type="submit" class="btn btn-baixo col-2" onclick="alert('O seu Orçamento foi Aprovado.')" [routerLink]="['/cliente/listarPedidosCliente']">APROVAR ORÇAMENTO</button>
+		<button type="submit" class="btn btn-baixo col-2" (click)="reprovarOrcamento()">REPROVAR ORÇAMENTO</button>
+	  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>

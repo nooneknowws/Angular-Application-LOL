@@ -1,0 +1,87 @@
+<!-- Aqui vai as navbar, pra cadastrar algo novo nelas usa o routerLink com o path que tu especificou no app-routing.module
+  e pra fazer elas sumirem ou aparecerem em uma tela especifica usa os if dentro delas com o nome da classe da tela. -->
+
+<div  class="conteiner-fluid">
+  <!-- Nav bar de cliente -->
+ <nav *ngIf="usuarioLogado && usuarioLogado.perfil == 'CLIENTE' " class="navbar navbar-expand-lg bg-body-tertiary p-0">
+    <div class="container-fluid ms-5 p-0">
+      <a class="navbar-brand m-0 p-0"><img alt="" height="64" width="64" src="../assets/maquina.png"></a>
+
+      <ul class="navbar-nav nav-underline">
+        <li class="nav-item mx-5">
+          <a routerLink="/cliente/inicialCliente" class="nav-link" [class.active]="componenteAtivo === 'inicialCliente'">Início</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a routerLink="/cliente/pedidosCliente" class="nav-link" [class.active]="componenteAtivo === 'pedidosCliente'">Pedidos Online</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a routerLink="/cliente/listarPedidosCliente" class="nav-link" [class.active]="componenteAtivo === 'listarPedidosCliente'">Meus Pedidos</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a routerLink="/cliente/consultarPedido" class="nav-link" [class.active]="componenteAtivo === 'consultarPedido'">Consultar Pedido</a>
+        </li>
+        <ul *ngIf="usuarioLogado" class="navbar-nav ml-auto">
+          <li class="nav-item">
+          <a class="nav-link" href="#" (click)="logout()">Logout</a>
+          </li>
+        </ul>
+
+      </ul>
+
+      <form aria-label class="d-flex justify-content-end" role="search" style="background: #CF8DA7; border-top-left-radius: 20px; border-bottom-left-radius: 20px">
+        <img alt="" class="ms-3 p-2" height="64" width="64" src="../assets/amaciante.png">
+
+        <div class="input-group p-3 me-3 text-center">
+          <a class="fs-4 text-light">{{usuarioLogado.nome}}</a>
+        </div>
+      </form>
+
+    </div>
+  </nav>
+  <!-- Nav bar de funcionario -->
+
+  <nav aria-label *ngIf="usuarioLogado && usuarioLogado.perfil != 'CLIENTE' " class="navbar navbar-expand-lg bg-body-tertiary p-0">
+
+
+    <div class="container-fluid ms-5 p-0">
+      <a class="navbar-brand m-0 p-0"><img height="64" width="64" src="../assets/maquina.png"></a>
+
+      <ul class="navbar-nav nav-underline">
+        <li class="nav-item mx-5">
+          <a routerLink="/funcionario/inicialFuncionario" class="nav-link" [class.active]="componenteAtivo === 'inicialFuncionario'">Início</a>
+
+        </li>
+        <li class="nav-item mx-5">
+          <a routerLink="/funcionario/listarPedidos" class="nav-link" [class.active]="componenteAtivo === 'listarPedidos'">Pedidos</a>
+
+        </li>
+        <li class="nav-item mx-5">
+          <a routerLink="/funcionario/listarManutencao" class="nav-link" [class.active]="componenteAtivo === 'listarManutencao'">Roupas</a>
+
+        </li>
+        <li *ngIf="usuarioLogado?.perfil==='ADMIN' || usuarioLogado?.perfil==='GERENTE'" class="nav-item mx-5">
+          <a routerLink="/funcionario/listarFuncionario" class="nav-link" [class.active]="componenteAtivo === 'listarFuncionario'">Funcionários</a>
+
+        </li>
+        <li class="nav-item mx-5">
+          <a routerLink="/relatorio/selecionarRelatorio" class="nav-link" [class.active]="componenteAtivo === 'selecionarRelatorio'">Relatórios</a>
+
+        </li>
+      </ul>
+      <ul *ngIf="usuarioLogado" class="navbar-nav ml-auto">
+        <li class="nav-item">
+        <a class="nav-link" href="#" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+
+      <form class="d-flex justify-content-end" role="search" style="background: #91C2D8; border-top-left-radius: 20px; border-bottom-left-radius: 20px">
+        <img class="ms-3 p-2" height="64" width="64" src="../assets/amaciante.png">
+        <div class="input-group p-3 me-3 text-center">
+    <a class="fs-4 text-light">{{usuarioLogado.nome}}</a>
+        </div>
+      </form>
+
+    </div>
+  </nav>
+  <!-- dentro do app.component.html da pra por qlqer coisa que seja meio "global" na aplicação, as nav bar são um exemplo disso -->
+  <router-outlet></router-outlet>

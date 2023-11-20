@@ -1,0 +1,33 @@
+<div class="text-center">
+  <h1 class="titulo-tela my-5">Clientes fieis</h1>
+</div>
+
+<div class="row mx-5 px-5 justify-content-center">
+  <table id="conteudo-para-pdf" class="table table-bordered">
+    <thead class="table-giu">
+      <tr>
+        <th>Nome</th>
+        <th>Quantidade de Pedidos</th>
+        <th>Data do Último Pedido</th>
+        <th>Total dos Pedidos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientesMap | keyvalue">
+
+        <!-- Assuming 'clientesMap' contains objects of type 'ClientePedido' -->
+        <ng-container *ngIf="cliente.value && cliente.value.nome && cliente.value.quantidade !== undefined && cliente.value.data && cliente.value.valorTotal !== undefined">
+
+          <!-- Display data for CLIENTE profiles -->
+            <td>{{ cliente.value.nome }}</td>
+            <td>{{ cliente.value.quantidade }}</td>
+            <td>{{ cliente.value.data | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ cliente.value.valorTotal | number: '2.2-2' }}</td>
+          </ng-container>
+
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+

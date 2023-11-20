@@ -1,0 +1,23 @@
+body {
+	font-family: Helvetica, sans-serif;
+}
+
+.titulo-tela{
+    color: #CF8DA7; 
+    font-weight: bold;
+}
+
+.btn-novo{
+   background-color: #CF8DA7;
+   color: white !important;
+}
+
+.btn-editar{
+    background-color: #857DC4 ;
+    color: white !important;
+}
+
+.btn-remover{
+    background-color: #91C2D8;
+    color: white !important;
+}

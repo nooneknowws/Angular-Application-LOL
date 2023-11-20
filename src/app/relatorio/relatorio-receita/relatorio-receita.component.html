@@ -1,0 +1,45 @@
+<div class="text-center">
+  <h1 class="titulo-tela mt-5">Relatorio de receitas</h1>
+  <button type="submit" class="btn mt-1 mb-1 btn-baixo col-2 btn-3" (click)="gerarRelatorio()">
+    <span>Gerar PDF Receitas</span>
+  </button>
+  <span class="a">
+    <div class="dropdown mb-5">
+      <button
+        class="btn btn-outline-giu dropdown-toggle"
+        type="button"
+        id="filtroDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Filtro <i class="fas fa-filter"></i>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="filtroDropdown">
+        <li><a class="dropdown-item" (click)="filterPedidos('Pedidos de Hoje')" >Pedidos de Hoje</a></li>
+        <li><a class="dropdown-item" (click)="openDateRangePickerModal()">Período de Data</a></li>
+        <li><a class="dropdown-item" (click)="filterPedidos('Todos os Pedidos')">Todos os Pedidos</a></li>
+      </ul>
+    </div>
+  </span>
+</div>
+
+<div class="row mx-5 px-5 justify-content-center">    
+  <table id="conteudo-para-pdf" class="table table-bordered table-hover mx-auto" style="width: 70vw;">
+      <tbody>
+        <tr class="text-center">
+          <th class="a">Data</th>
+          <th class="a">Número</th>
+          <th class="a">Cliente</th>
+          <th class="a">Valor</th>
+        </tr>
+        <ng-container *ngFor="let pedido of pedidos">
+          <tr class="text-center align-middle">
+            <td>{{pedido.datadopedido | date:'dd/MM/yyyy HH:mm'}}</td>
+            <td>#{{ pedido.id }}</td>
+            <td>{{pedido.usuario?.nome}}</td>
+            <td>{{ somaPedido(pedido) | currency:'BRL' }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+</div>

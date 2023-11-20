@@ -1,0 +1,8 @@
+
+<ngb-datepicker #dp 
+                [(ngModel)]="startDate" 
+                (ngModelChange)="onDateSelected($event, 'start')"></ngb-datepicker>
+<ngb-datepicker #dp 
+                [(ngModel)]="endDate" 
+                (ngModelChange)="onDateSelected($event, 'end')"></ngb-datepicker>
+<button class="btn btn-secondary align-middle" (click)="confirmSelection()">Confirmar</button>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meus Pedidos</title>
+  </head>
+
+  <body>
+    <div class="content">
+      <h1
+        class="titulo-tela d-flex justify-content-center m-4 pt-2"
+        style="color: #857dc4"
+      >
+        Lista de pedidos
+      </h1>
+      <div class="hstack gap-2 d-flex justify-content-center">
+        <table
+          class="table table-bordered table-hover mx-auto mt-3"
+          style="width: 70vw"
+        >
+          <tbody>
+            <tr class="text-center">
+              <th class="a">Número</th>
+              <th class="a">Data</th>
+              <th class="a">Status</th>
+              <th class="a">
+                <div class="dropdown">
+                  <button
+                    class="btn btn-outline-giu dropdown-toggle"
+                    type="button"
+                    id="filtroDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Filtro <i class="fas fa-filter"></i>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="filtroDropdown">
+                    <li>
+                      <a class="dropdown-item" (click)="filterPedidos()"
+                        >Todos os Pedidos</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        (click)="filtroStatus(pedidos, 'Aberto')"
+                        >Em Aberto</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        (click)="filtroStatus(pedidos, 'Rejeitado')"
+                        >Rejeitado</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        (click)="filtroStatus(pedidos, 'Cancelado')"
+                        >Cancelado</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        (click)="filtroStatus(pedidos, 'Recolhido')"
+                        >Recolhido</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        (click)="filtroStatus(pedidos, 'Aguardando Pagamento')"
+                        >Aguardando Pagamento</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        (click)="filtroStatus(pedidos, 'Pago')"
+                        >Pago</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        (click)="filtroStatus(pedidos, 'Finalizado')"
+                        >Finalizado</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </th>
+            </tr>
+            <ng-container
+              *ngFor="
+                let pedido of showFilteredResults ? filteredPedidos : pedidos
+              "
+            >
+              <tr class="text-center align-middle">
+                <td>#{{ pedido.id }}</td>
+                <td>{{ pedido.datadopedido | date : "dd/MM/yyyy HH:mm" }}</td>
+                <td
+                  class="status"
+                  [style.background-color]="pedido.status?.color"
+                >
+                  {{ pedido.status?.Status }}
+                </td>
+                <td>
+                  <a href="#" (click)="NavegarPedido($event, pedido.id)">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      fill="currentColor"
+                      class="bi bi-plus-lg"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
+                      />
+                    </svg>
+                  </a>
+                </td></tr
+            ></ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p
+      *ngIf="showFilteredResults && filteredPedidos.length == 0"
+      class="text-center"
+    >
+      Nenhum Pedido Encontrado
+    </p>
+  </body>
+</html>

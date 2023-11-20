@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      scr = "../node_modules/jspdf/dist/jspdf.min.js";
+    </script>
+    <link
+      rel="stylesheet"
+      href="/src/app/relatorio/selecionar-relatorio/selecionar-relatorio.component.css"
+    />
+    <title>Gerar Relatorio</title>
+  </head>
+
+  <body>
+    <div #dataToExport></div>
+
+    <div class="cont frame">
+      <h1 class="titulo mt-5 mb-5 pt-2">Selecione o tipo de relatório:</h1>
+      <button type="submit" class="btn btn-baixo col-2 btn-3" (click)="gerarRelatorio('clientes')">
+        <span>Clientes Gerar PDF</span>
+      </button>
+      <button type="submit" class="btn btn-baixo col-2 btn-3" (click)="gerarRelatorio('receitas')">
+        <span>Ir para Gerar PDF Receitas</span>
+      </button>
+      <button type="submit" class="btn btn-baixo col-2 btn-3" (click)="gerarRelatorio('clientesFieis')">
+        <span>Gerar PDF Clientes Fieis</span>
+      </button>
+      <button routerLink="/funcionario/inicialFuncionario" class="btn btn-baixo col-2 btn-3">
+      <span>Voltar</span>
+    </button>
+    </div>
+  </body>
+</html>
